@@ -1,9 +1,19 @@
 import React, {Component} from 'react';
 import {View, FlatList} from 'react-native';
-import getInitialData from '../utils/helpers';
 import DeckListItem from './DeckListItem';
+import {fetchDecks} from '../utils/api';
+import {AppLoading} from 'expo';
 
 class DeckList extends Component {
+  state = {
+    ready: false,
+  };
+
+  componentDidMount () {
+    fetchDecks()
+      .then((data) => this.setState(() => ({ready: true, data})))
+  }
+
   _renderItem = ({item}) => {
     return (
       <DeckListItem
@@ -13,12 +23,17 @@ class DeckList extends Component {
   };
 
   render() {
-    const metaInfo = getInitialData();
+    const { ready, data } = this.state;
+
+    if (ready === false) {
+      return <AppLoading />
+    }
+
     return (
       <View>
         <FlatList
-          data={Object.keys(metaInfo).map((key) => {
-            const {title} = metaInfo[key];
+          data={Object.keys(data).map((key) => {
+            const {title} = data[key];
             return {key, title};
           })}
           renderItem={this._renderItem}
