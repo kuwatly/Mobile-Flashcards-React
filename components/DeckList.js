@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, FlatList} from 'react-native';
+import {View, FlatList, TouchableOpacity} from 'react-native';
 import DeckListItem from './DeckListItem';
 import {fetchDecks} from '../utils/api';
 import {AppLoading} from 'expo';
@@ -16,9 +16,17 @@ class DeckList extends Component {
 
   _renderItem = ({item}) => {
     return (
-      <DeckListItem
-        title={item.title}
-      />
+      <TouchableOpacity
+        onPress={() => this.props.navigation.navigate(
+          'DeckDetails',
+          {entryId: item.title}
+        )}
+      >
+        <DeckListItem
+          title={item.title}
+        />
+      </TouchableOpacity>
+
     );
   };
 

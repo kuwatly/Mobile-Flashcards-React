@@ -3,7 +3,7 @@ import {View, Text, StyleSheet} from 'react-native';
 
 export default function DeckListItem({title}) {
     return (
-      <View>
+      <View style={styles.itemView}>
         <Text style={styles.itemText}>
           {title}
         </Text>
@@ -18,4 +18,7 @@ const styles = StyleSheet.create({
     padding: 10,
     textAlign: 'center',
   },
+  itemView: {
+    padding: 30,
+  }
 });

@@ -2,11 +2,20 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
 class DeckDetails extends Component {
+  static navigationOptions = ({navigation}) => {
+    const {entryId} = navigation.state.params;
+
+    return {
+      title: entryId
+    }
+  };
+
   render() {
+    const {entryId} = this.props.navigation.state.params;
     return (
       <View>
         <Text style={styles.itemText}>
-          Hello World
+          {entryId}
         </Text>
       </View>
     )
