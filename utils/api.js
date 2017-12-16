@@ -26,14 +26,15 @@ export function saveDeckTitle(title) {
 }
 
 export function addCardToDeck({title, card}) {
-  const {question, answer} = card;
-  const decks = getDecks();
-  const newDeck = decks[title];
-  newDeck.questions.concat({question: question, answer: answer});
+  getDecks()
+    .then((decks) => {
+      const newDeck = decks[title];
+      newDeck.questions.push(card);
 
-  return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
-    [title]: newDeck,
-  }))
+      return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
+        [title]: newDeck,
+      }))
+    });
 }
 
 export function formatDecksResults (results) {

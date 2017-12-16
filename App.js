@@ -2,6 +2,7 @@ import React from 'react';
 import {View, StatusBar, Platform} from 'react-native';
 import DeckList from './components/DeckList';
 import NewDeck from './components/NewDeck'
+import AddCard from './components/AddCard'
 import DeckDetails from './components/DeckDetails'
 import {blue, white, purple} from './utils/colors';
 import { Constants } from 'expo';
@@ -64,7 +65,16 @@ const MainNavigator = StackNavigator({
         backgroundColor: purple,
       }
     }
-  }
+  },
+  AddCard: {
+    screen: AddCard,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple,
+      }
+    }
+  },
 });
 
 export default class App extends React.Component {

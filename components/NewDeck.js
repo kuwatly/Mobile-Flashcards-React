@@ -11,7 +11,7 @@ class NewDeck extends Component {
 
   _onPressButton = () => {
     saveDeckTitle(this.state.text);
-    Alert.alert('Card added successfully!');
+    Alert.alert('Deck added successfully!');
     this.props.navigation.navigate('Home')
   };
 
