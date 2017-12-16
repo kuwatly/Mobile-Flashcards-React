@@ -16,7 +16,7 @@ export function getDeck(key) {
     });
 }
 
-export function saveDeckTitle({title}) {
+export function saveDeckTitle(title) {
   return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
     [title]: {
       title: title,
