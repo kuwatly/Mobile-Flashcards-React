@@ -24,6 +24,7 @@ class DeckList extends Component {
       >
         <DeckListItem
           title={item.title}
+          count={item.questionsCount}
         />
       </TouchableOpacity>
 
@@ -42,7 +43,9 @@ class DeckList extends Component {
         <FlatList
           data={Object.keys(data).map((key) => {
             const {title} = data[key];
-            return {key, title};
+            const {questions} = data[key];
+            const questionsCount = questions.length;
+            return {key, title, questionsCount};
           })}
           renderItem={this._renderItem}
         />
