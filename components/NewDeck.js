@@ -1,11 +1,16 @@
 import React, {Component} from 'react';
-import {Alert, View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {Alert, View, Text, StyleSheet, TouchableOpacity, TextInput} from 'react-native';
 import {black} from '../utils/colors'
 import {saveDeckTitle} from '../utils/api'
 
 class NewDeck extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { text: 'Deck Title' };
+  }
+
   _onPressButton = () => {
-    saveDeckTitle('Test');
+    saveDeckTitle(this.state.text);
     Alert.alert('Card added successfully!');
     this.props.navigation.navigate('Home')
   };
@@ -16,6 +21,11 @@ class NewDeck extends Component {
         <Text style={styles.titleText}>
           What is the title of your new deck?
         </Text>
+        <TextInput
+          style={styles.inputText}
+          onChangeText={(text) => this.setState({text})}
+          value={this.state.text}
+        />
         <TouchableOpacity
           onPress={this._onPressButton}
           style={styles.submitButton}>
@@ -32,6 +42,12 @@ const styles = StyleSheet.create({
     fontSize: 64,
     padding: 10,
     textAlign: 'center',
+  },
+  inputText: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    width: 260,
   },
   submitButtonText: {
     color: 'white',
