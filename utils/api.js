@@ -3,27 +3,36 @@ import getInitialData from '../utils/helpers';
 
 export const DECKS_STORAGE_KEY = 'MobileFlashcards:Decks';
 
-export function fetchDecks() {
+export function getDecks() {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY)
     .then(formatDecksResults);
 }
 
-export function addDeck({key}) {
+export function getDeck(key) {
+  return AsyncStorage.getItem(DECKS_STORAGE_KEY)
+    .then(formatDecksResults)
+    .then((results) => {
+      return results[key];
+    });
+}
+
+export function saveDeckTitle({title}) {
   return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
-    [key]: {
-      title: key,
+    [title]: {
+      title: title,
       questions: []
     },
   }))
 }
 
-export function addQuestion({key, question, answer}) {
-  const decks = fetchDecks();
-  const newDeck = decks[key];
+export function addCardToDeck({title, card}) {
+  const {question, answer} = card;
+  const decks = getDecks();
+  const newDeck = decks[title];
   newDeck.questions.concat({question: question, answer: answer});
 
   return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
-    [key]: newDeck,
+    [title]: newDeck,
   }))
 }
 

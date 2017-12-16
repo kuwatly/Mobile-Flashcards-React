@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, FlatList, TouchableOpacity} from 'react-native';
 import DeckListItem from './DeckListItem';
-import {fetchDecks} from '../utils/api';
+import {getDecks} from '../utils/api';
 import {AppLoading} from 'expo';
 
 class DeckList extends Component {
@@ -10,7 +10,7 @@ class DeckList extends Component {
   };
 
   componentDidMount () {
-    fetchDecks()
+    getDecks()
       .then((data) => this.setState(() => ({ready: true, data})))
   }
 
