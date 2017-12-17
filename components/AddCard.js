@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Alert, View, Text, StyleSheet, TouchableOpacity, TextInput} from 'react-native';
+import {Alert, KeyboardAvoidingView, Text, StyleSheet, TouchableOpacity, TextInput} from 'react-native';
 import {black} from '../utils/colors'
 import {addCardToDeck} from '../utils/api'
 
@@ -7,8 +7,8 @@ class AddCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      question: 'Question?',
-      answer: 'Answer.'
+      question: '',
+      answer: ''
     };
   }
 
@@ -30,7 +30,7 @@ class AddCard extends Component {
 
   render() {
     return (
-      <View style={{alignItems: 'center'}}>
+      <KeyboardAvoidingView style={{alignItems: 'center'}}>
         <Text style={styles.labelText}>
           Question:
         </Text>
@@ -42,6 +42,9 @@ class AddCard extends Component {
             question: text,
           }})}
           value={this.state.question}
+          placeholder='Questions?'
+          returnKeyType='next'
+          onSubmitEditing={() => this.answerInput.focus()}
         />
         <Text style={styles.labelText}>
           Answer:
@@ -54,13 +57,15 @@ class AddCard extends Component {
               answer: text,
             }})}
           value={this.state.answer}
+          placeholder='Answer.'
+          ref={(input) => this.answerInput = input}
         />
         <TouchableOpacity
           onPress={this._onPressButton}
           style={styles.submitButton}>
           <Text style={styles.submitButtonText}>Submit</Text>
         </TouchableOpacity>
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }

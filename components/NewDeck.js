@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import {Alert, View, Text, StyleSheet, TouchableOpacity, TextInput} from 'react-native';
+import {Alert, KeyboardAvoidingView, Text, StyleSheet, TouchableOpacity, TextInput} from 'react-native';
 import {black} from '../utils/colors'
 import {saveDeckTitle} from '../utils/api'
 
 class NewDeck extends Component {
   constructor(props) {
     super(props);
-    this.state = { text: 'Deck Title' };
+    this.state = { text: '' };
   }
 
   _onPressButton = () => {
@@ -17,7 +17,7 @@ class NewDeck extends Component {
 
   render() {
     return (
-      <View style={{alignItems: 'center'}}>
+      <KeyboardAvoidingView style={{alignItems: 'center'}}>
         <Text style={styles.titleText}>
           What is the title of your new deck?
         </Text>
@@ -25,13 +25,14 @@ class NewDeck extends Component {
           style={styles.inputText}
           onChangeText={(text) => this.setState({text})}
           value={this.state.text}
+          placeholder='Deck Title'
         />
         <TouchableOpacity
           onPress={this._onPressButton}
           style={styles.submitButton}>
           <Text style={styles.submitButtonText}>Submit</Text>
         </TouchableOpacity>
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }
