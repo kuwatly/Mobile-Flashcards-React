@@ -9,11 +9,14 @@ class DeckDetails extends Component {
     ready: false,
   };
 
-  _onPressButton = () => {
+  _onAddCardPressButton = () => {
     const {entryId} = this.props.navigation.state.params;
     this.props.navigation.navigate('AddCard', {entryId});
   };
 
+  _onStartQuizPressButton = (deck) => {
+    this.props.navigation.navigate('TakeQuiz', {deck, questionNumber: 0});
+  };
 
   static navigationOptions = ({navigation}) => {
     const {entryId} = navigation.state.params;
@@ -42,9 +45,14 @@ class DeckDetails extends Component {
           count={deck.questions.length}
         />
         <TouchableOpacity
-          onPress={this._onPressButton}
+          onPress={this._onAddCardPressButton}
           style={styles.addCardButton}>
           <Text style={styles.addCardButtonText}>Add Card</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => this._onStartQuizPressButton(deck)}
+          style={styles.startQuizButton}>
+          <Text style={styles.startQuizText}>Take Quiz</Text>
         </TouchableOpacity>
       </View>
     )
@@ -54,11 +62,24 @@ class DeckDetails extends Component {
 const styles = StyleSheet.create({
   addCardButton: {
     width: 260,
+    backgroundColor:'white',
+    borderRadius:15,
+    borderWidth:5,
+    borderColor:'white'
+  },
+  addCardButtonText: {
+    color: 'black',
+    fontSize: 32,
+    padding: 5,
+    textAlign: 'center',
+  },
+  startQuizButton: {
+    width: 260,
     backgroundColor:'black',
     borderRadius:15,
     borderWidth:5,
   },
-  addCardButtonText: {
+  startQuizText: {
     color: 'white',
     fontSize: 32,
     padding: 5,

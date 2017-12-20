@@ -4,6 +4,7 @@ import DeckList from './components/DeckList';
 import NewDeck from './components/NewDeck'
 import AddCard from './components/AddCard'
 import DeckDetails from './components/DeckDetails'
+import TakeQuiz from './components/TakeQuiz'
 import {blue, white, purple} from './utils/colors';
 import { Constants } from 'expo';
 import { TabNavigator, StackNavigator } from 'react-navigation';
@@ -68,6 +69,15 @@ const MainNavigator = StackNavigator({
   },
   AddCard: {
     screen: AddCard,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple,
+      }
+    }
+  },
+  TakeQuiz: {
+    screen: TakeQuiz,
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {
