@@ -1,14 +1,9 @@
 import React, {Component} from 'react';
 import DeckListItem from './DeckListItem'
-import {getDeck} from "../utils/api";
-import {AppLoading} from 'expo';
 import {View, TouchableOpacity, Text, Alert, StyleSheet} from 'react-native';
+import {connect} from 'react-redux';
 
 class DeckDetails extends Component {
-  state = {
-    ready: false,
-  };
-
   _onAddCardPressButton = () => {
     const {entryId} = this.props.navigation.state.params;
     this.props.navigation.navigate('AddCard', {entryId});
@@ -25,18 +20,9 @@ class DeckDetails extends Component {
     }
   };
 
-  componentDidMount () {
-    const {entryId} = this.props.navigation.state.params;
-    getDeck(entryId)
-      .then((deck) => this.setState(() => ({ready: true, deck})))
-  }
-
   render() {
-    const { ready, deck } = this.state;
-
-    if (ready === false) {
-      return <AppLoading />
-    }
+    const {entryId} = this.props.navigation.state.params;
+    const deck = this.props.decks[entryId];
 
     return (
       <View style={{alignItems: 'center'}}>
@@ -87,4 +73,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DeckDetails;
+function mapStateToProps ({decks}) {
+  return {
+    decks
+  }
+}
+
+export default connect(mapStateToProps)(DeckDetails);

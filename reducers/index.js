@@ -9,12 +9,13 @@ function cards(state = {}, action) {
           ...state.decks,
           [action.deckTitle]: {
             ...state.decks[action.deckTitle],
-            questions: state.decks[action.deckTitle].questions.push(action.card)
+            questions: state.decks[action.deckTitle].questions.concat(action.card)
           }
         }
       };
     case ADD_DECKS :
       return {
+        ...state,
         decks: action.decks
       };
     default :

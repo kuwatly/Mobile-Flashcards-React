@@ -14,8 +14,8 @@ class DeckList extends Component {
   componentDidMount () {
     getDecks()
       .then((data) =>  {
-        this.setState(() => ({ready: true, data}));
         this.props.dispatch(addDecks(data));
+        this.setState(() => ({ready: true}));
       })
   }
 
@@ -37,7 +37,8 @@ class DeckList extends Component {
   };
 
   render() {
-    const { ready, data } = this.state;
+    const {ready} = this.state;
+    const data = this.props.decks;
 
     if (ready === false) {
       return <AppLoading />
@@ -59,4 +60,10 @@ class DeckList extends Component {
   }
 }
 
-export default connect()(DeckList);
+function mapStateToProps ({decks}) {
+  return {
+    decks
+  }
+}
+
+export default connect(mapStateToProps)(DeckList);
