@@ -6,7 +6,6 @@ class TakeQuiz extends Component {
   constructor(props) {
     super(props);
     const {deck, questionNumber} = this.props.navigation.state.params;
-    console.log(deck);
     this.state = {
       deck,
       questionNumber,

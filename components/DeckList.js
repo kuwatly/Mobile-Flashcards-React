@@ -3,6 +3,8 @@ import {View, FlatList, TouchableOpacity} from 'react-native';
 import DeckListItem from './DeckListItem';
 import {getDecks} from '../utils/api';
 import {AppLoading} from 'expo';
+import {addDecks} from "../actions";
+import {connect} from 'react-redux';
 
 class DeckList extends Component {
   state = {
@@ -11,7 +13,10 @@ class DeckList extends Component {
 
   componentDidMount () {
     getDecks()
-      .then((data) => this.setState(() => ({ready: true, data})))
+      .then((data) =>  {
+        this.setState(() => ({ready: true, data}));
+        this.props.dispatch(addDecks(data));
+      })
   }
 
   _renderItem = ({item}) => {
@@ -54,4 +59,4 @@ class DeckList extends Component {
   }
 }
 
-export default DeckList;
+export default connect()(DeckList);

@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import {Alert, KeyboardAvoidingView, Text, StyleSheet, TouchableOpacity, TextInput} from 'react-native';
-import {black} from '../utils/colors'
-import {addCardToDeck} from '../utils/api'
+import {black} from '../utils/colors';
+import {addCardToDeck} from '../utils/api';
+import {connect} from 'react-redux';
+import {addCard} from "../actions";
 
 class AddCard extends Component {
   constructor(props) {
@@ -23,6 +25,7 @@ class AddCard extends Component {
       question: this.state.question,
       answer: this.state.answer,
     };
+    this.props.dispatch(addCard(entryId, card));
     addCardToDeck({title: entryId, card});
     Alert.alert('Card added successfully!');
     goBack();
@@ -97,4 +100,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddCard;
+export default connect()(AddCard);
