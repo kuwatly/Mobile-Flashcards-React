@@ -12,6 +12,7 @@ import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import reducer from './reducers';
+import { setLocalNotification } from './utils/helpers'
 
 function FlashCardsStatusBar({backgroundColor, ...props}) {
   return (
@@ -91,6 +92,10 @@ const MainNavigator = StackNavigator({
 });
 
 export default class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification()
+  }
+
   render() {
     return (
       <Provider store={createStore(reducer)}>

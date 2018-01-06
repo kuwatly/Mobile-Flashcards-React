@@ -56,7 +56,7 @@ class NewDeck extends Component {
 const styles = StyleSheet.create({
   titleText: {
     color: 'black',
-    fontSize: 64,
+    fontSize: 32,
     padding: 10,
     textAlign: 'center',
   },

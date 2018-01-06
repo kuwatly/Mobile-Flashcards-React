@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Alert} from 'react-native';
-import {black} from '../utils/colors'
-import { NavigationActions } from 'react-navigation'
+import {black} from '../utils/colors';
+import { NavigationActions } from 'react-navigation';
+import {clearLocalNotification, setLocalNotification} from '../utils/helpers';
 
 class TakeQuiz extends Component {
   constructor(props) {
@@ -66,6 +67,8 @@ class TakeQuiz extends Component {
     });
     if (nextQuestionNumber >= deck.questions.length) {
       const scorePercentage = (100 * (score / deck.questions.length));
+      clearLocalNotification()
+        .then(setLocalNotification);
       Alert.alert(
         'Quiz Complete',
         'Your score is ' + scorePercentage.toFixed(2) + '%',
