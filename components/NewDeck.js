@@ -33,7 +33,7 @@ class NewDeck extends Component {
 
   render() {
     return (
-      <KeyboardAvoidingView style={{alignItems: 'center'}}>
+      <KeyboardAvoidingView style={styles.container}>
         <Text style={styles.titleText}>
           What is the title of your new deck?
         </Text>
@@ -54,6 +54,11 @@ class NewDeck extends Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
   titleText: {
     color: 'black',
     fontSize: 32,

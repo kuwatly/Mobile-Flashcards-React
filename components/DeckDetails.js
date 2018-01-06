@@ -25,7 +25,7 @@ class DeckDetails extends Component {
     const deck = this.props.decks[entryId];
 
     return (
-      <View style={{alignItems: 'center'}}>
+      <View style={styles.container}>
         <DeckListItem
           title={deck.title}
           count={deck.questions.length}
@@ -46,6 +46,11 @@ class DeckDetails extends Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
   addCardButton: {
     width: 260,
     backgroundColor:'white',

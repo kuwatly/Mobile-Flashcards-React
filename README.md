@@ -20,6 +20,9 @@ And you can launch the app with
 ```
 yarn start
 ```
+<img src='screenshots/app-anim.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## License
 Readable is released under the [MIT License](https://opensource.org/licenses/MIT).

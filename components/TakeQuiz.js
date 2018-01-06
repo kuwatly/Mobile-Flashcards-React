@@ -83,14 +83,14 @@ class TakeQuiz extends Component {
     }
   }
   _onPressQuestionAnswerButton = () => {
-    const {deck, questionNumber} = this.state;
-    this.props.navigation.navigate('TakeQuiz', {deck, questionNumber: questionNumber, displayQuestion: !this.state.displayQuestion});
+    const {deck, questionNumber, score} = this.state;
+    this.props.navigation.navigate('TakeQuiz', {deck, questionNumber: questionNumber, displayQuestion: !this.state.displayQuestion, score});
   };
 
   render() {
     const {deck, questionNumber} = this.state;
     return (
-      <View style={{alignItems: 'center'}}>
+      <View style={styles.container}>
         <Text style={styles.labelText}>
           {questionNumber+1} / {deck.questions.length}
         </Text>
@@ -124,6 +124,11 @@ class TakeQuiz extends Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
   labelText: {
     color: 'black',
     fontSize: 24,
