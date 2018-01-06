@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 import {Alert, KeyboardAvoidingView, Text, StyleSheet, TouchableOpacity, TextInput} from 'react-native';
-import {black} from '../utils/colors'
-import {saveDeckTitle} from '../utils/api'
+import {black} from '../utils/colors';
+import {saveDeckTitle} from '../utils/api';
+import {connect} from 'react-redux';
+import {addDeck} from "../actions";
+import {NavigationActions} from "react-navigation";
 
 class NewDeck extends Component {
   constructor(props) {
@@ -11,11 +14,21 @@ class NewDeck extends Component {
 
   _onPressButton = () => {
     saveDeckTitle(this.state.text);
+    this.props.dispatch(addDeck(this.state.text));
     Alert.alert('Deck added successfully!');
-    this.props.navigation.navigate(
-      'DeckDetails',
-      {entryId: this.state.text}
-    );
+    const goBackAction = NavigationActions.reset({
+      index: 1,
+      actions: [
+        NavigationActions.navigate({ routeName: 'Home'}),
+        NavigationActions.navigate({
+          routeName: 'DeckDetails',
+          params: {
+            entryId: this.state.text
+          }
+        }),
+      ],
+    });
+    this.props.navigation.dispatch(goBackAction);
   };
 
   render() {
@@ -67,4 +80,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NewDeck;
+export default connect()(NewDeck);
