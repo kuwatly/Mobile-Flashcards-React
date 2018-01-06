@@ -10,7 +10,7 @@ class DeckDetails extends Component {
   };
 
   _onStartQuizPressButton = (deck) => {
-    this.props.navigation.navigate('TakeQuiz', {deck, questionNumber: 0, displayQuestion: true});
+    this.props.navigation.navigate('TakeQuiz', {deck, questionNumber: 0, displayQuestion: true, score: 0});
   };
 
   static navigationOptions = ({navigation}) => {
