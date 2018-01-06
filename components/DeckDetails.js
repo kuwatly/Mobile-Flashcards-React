@@ -10,7 +10,7 @@ class DeckDetails extends Component {
   };
 
   _onStartQuizPressButton = (deck) => {
-    this.props.navigation.navigate('TakeQuiz', {deck, questionNumber: 0});
+    this.props.navigation.navigate('TakeQuiz', {deck, questionNumber: 0, displayQuestion: true});
   };
 
   static navigationOptions = ({navigation}) => {
@@ -38,7 +38,7 @@ class DeckDetails extends Component {
         <TouchableOpacity
           onPress={() => this._onStartQuizPressButton(deck)}
           style={styles.startQuizButton}>
-          <Text style={styles.startQuizText}>Take Quiz</Text>
+          <Text style={styles.startQuizText}>Start Quiz</Text>
         </TouchableOpacity>
       </View>
     )

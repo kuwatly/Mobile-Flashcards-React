@@ -11,9 +11,9 @@ class DeckList extends Component {
     ready: false,
   };
 
-  componentDidMount () {
+  componentDidMount() {
     getDecks()
-      .then((data) =>  {
+      .then((data) => {
         this.props.dispatch(addDecks(data));
         this.setState(() => ({ready: true}));
       })

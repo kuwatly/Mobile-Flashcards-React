@@ -5,12 +5,13 @@ import {black} from '../utils/colors'
 class TakeQuiz extends Component {
   constructor(props) {
     super(props);
-    const {deck, questionNumber} = this.props.navigation.state.params;
+    const {deck, questionNumber, displayQuestion} = this.props.navigation.state.params;
     this.state = {
       deck,
       questionNumber,
       question: deck.questions[questionNumber].question,
-      answer: deck.questions[questionNumber].answer
+      answer: deck.questions[questionNumber].answer,
+      displayQuestion
     };
   }
 
@@ -18,42 +19,49 @@ class TakeQuiz extends Component {
     return { title: 'Quiz' }
   };
 
-  _onPressButton = () => {
-    const {deck, questionNumber} = this.props.navigation.state.params;
+  _onPressCorrectIncorrectButton = () => {
+    const {deck, questionNumber} = this.state;
     const nextQuestionNumber = questionNumber + 1;
     if (nextQuestionNumber >= deck.questions.length) {
       this.props.navigation.navigate('DeckDetails', {entryId: deck.title})
     } else {
-      this.props.navigation.navigate('TakeQuiz', {deck, questionNumber: nextQuestionNumber});
+      this.props.navigation.navigate('TakeQuiz', {deck, questionNumber: nextQuestionNumber, displayQuestion: true});
     }
   };
 
+  _onPressQuestionAnswerButton = () => {
+    const {deck, questionNumber} = this.state;
+    this.props.navigation.navigate('TakeQuiz', {deck, questionNumber: questionNumber, displayQuestion: !this.state.displayQuestion});
+  };
+
   render() {
-    const {deck, questionNumber} = this.props.navigation.state.params;
+    const {deck, questionNumber} = this.state;
     return (
       <View style={{alignItems: 'center'}}>
         <Text style={styles.labelText}>
           {questionNumber+1} / {deck.questions.length}
         </Text>
-        <Text style={styles.labelText}>
-          Question:
-        </Text>
+        {this.state.displayQuestion ?
         <Text style={styles.labelText}>
           {this.state.question}
         </Text>
-        <Text style={styles.labelText}>
-          Answer:
-        </Text>
+          :
         <Text style={styles.labelText}>
           {this.state.answer}
         </Text>
+        }
         <TouchableOpacity
-          onPress={this._onPressButton}
+          onPress={this._onPressQuestionAnswerButton}
+          style={styles.questionAnswerButton}>
+          <Text style={styles.buttonText}>{this.state.displayQuestion ? 'Answer' : 'Question'}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={this._onPressCorrectIncorrectButton}
           style={styles.correctButton}>
           <Text style={styles.buttonText}>Correct</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={this._onPressButton}
+          onPress={this._onPressCorrectIncorrectButton}
           style={styles.inCorrectButton}>
           <Text style={styles.buttonText}>Incorrect</Text>
         </TouchableOpacity>
@@ -74,6 +82,13 @@ const styles = StyleSheet.create({
     fontSize: 32,
     padding: 5,
     textAlign: 'center',
+  },
+  questionAnswerButton: {
+    width: 260,
+    backgroundColor:'blue',
+    borderRadius:15,
+    borderWidth:5,
+    borderColor:'blue'
   },
   correctButton: {
     width: 260,
